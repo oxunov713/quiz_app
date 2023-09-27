@@ -1,4 +1,4 @@
-String jsondata = """{"list":[
+String jsonData = """{"list":[
   {
     "question": "_____ her name Eliza? No, _____ .",
     "answer": [
@@ -206,27 +206,6 @@ String jsondata = """{"list":[
       {
         "ans": "Are / isn’t",
         "check": false
-      }
-    ]
-  },
-  {
-    "question": "Are you a student? Yes,I _____ .",
-    "answer": [
-      {
-        "ans": "am",
-        "check": true
-      },
-      {
-        "ans": "have",
-        "check": false
-      },
-      {
-        "ans": "Is",
-        "check": false
-      },
-      {
-        "ans": "'m not",
-        "check": true
       }
     ]
   }

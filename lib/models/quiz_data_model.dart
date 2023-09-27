@@ -58,12 +58,12 @@ class AnswerModel {
 }
 
 class QModel {
-  List<QuizModel> quizmodel;
+  List<QuizModel> list;
 
-  QModel({required this.quizmodel});
+  QModel({required this.list});
 
   factory QModel.fromJson(Map<String, Object?> json) => QModel(
-        quizmodel: (json["list"] as List?)
+        list: (json["list"] as List?)
                 ?.map((e) => QuizModel.fromJson(e))
                 .toList() ??
             [],

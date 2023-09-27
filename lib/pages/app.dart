@@ -8,7 +8,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home:  HomePage(),
+      home:  const HomePage(),
       debugShowCheckedModeBanner: false,
       title: "Quizzly",
       theme: ThemeData(

@@ -14,16 +14,12 @@ class CustomCard extends StatelessWidget {
         width: 360,
         decoration: const BoxDecoration(
           color: AppColor.white70,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 25,
-            ),
+            SizedBox(height: 25),
             Text(
               "Welcome to Quizzly!",
               style: TextStyle(
@@ -32,9 +28,7 @@ class CustomCard extends StatelessWidget {
                 fontSize: 24,
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 3),
               child: Text(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../styles/app_color.dart';
-import '../../questions/questions.dart';
 import 'level.dart';
 
 class Levels extends StatelessWidget {
@@ -9,10 +8,10 @@ class Levels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           "Choose the appropriate level...",
           style: TextStyle(
             fontWeight: FontWeight.w700,
@@ -20,15 +19,11 @@ class Levels extends StatelessWidget {
             fontSize: 20,
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
         Level(text: "Level 1"),
-        const SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
         Level(text: "Level 2"),
-        const SizedBox(height: 20),
+        SizedBox(height: 20),
         Level(text: "Level 3"),
       ],
     );

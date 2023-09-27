@@ -6,6 +6,7 @@ import '../../data/quiz_data.dart';
 import '../../models/quiz_data_model.dart';
 import '../../styles/app_color.dart';
 import '../result/result.dart';
+import 'widgets/bottom.dart';
 
 class Questions extends StatefulWidget {
   const Questions({super.key});
@@ -18,9 +19,9 @@ class _QuestionsState extends State<Questions> {
   int n = 0;
   int score = 0;
 
-  QModel model = QModel.fromJson(jsonDecode(jsondata));
+  QModel model = QModel.fromJson(jsonDecode(jsonData));
 
-  void answerquestion(bool check) {
+  void answerQuestion(bool check) {
     setState(() {
       n++;
       if (check) score++;
@@ -31,7 +32,7 @@ class _QuestionsState extends State<Questions> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: n < 11
+        body: n < 10
             ? Column(
                 children: [
                   Stack(
@@ -81,7 +82,7 @@ class _QuestionsState extends State<Questions> {
                               padding:
                                   const EdgeInsets.only(top: 50, bottom: 20),
                               child: Text(
-                                "Questions $n/10",
+                                "Questions ${n + 1}/10",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -93,7 +94,7 @@ class _QuestionsState extends State<Questions> {
                               padding:
                                   const EdgeInsets.only(left: 5, bottom: 3),
                               child: Text(
-                                "${model.quizmodel[n].questions}",
+                                "${model.list[n].questions}",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
@@ -136,159 +137,125 @@ class _QuestionsState extends State<Questions> {
                       ),
                     ],
                   ),
-                  Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 17,
-                        ),
-                        TextButton(
-                          onPressed: () => answerquestion(
-                              model.quizmodel[n].answer![0].check),
-                          child: SizedBox(
-                            height: 70,
-                            width: 300,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                                border: Border.all(
-                                  width: 3,
-                                  color: AppColor.borderPink,
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "${model.quizmodel[n].answer?[0].answer}",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColor.black,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 17),
+                      TextButton(
+                        onPressed: () =>
+                            answerQuestion(model.list[n].answer![0].check),
+                        child: Container(
+                          height: 70,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              width: 3,
+                              color: AppColor.borderPink,
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 17,
-                        ),
-                        TextButton(
-                          onPressed: () => answerquestion(
-                              model.quizmodel[n].answer![1].check),
-                          child: Container(
-                            height: 70,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              border: Border.all(
-                                width: 3,
-                                color: AppColor.borderPink,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "${model.quizmodel[n].answer?[1].answer}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.black,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 17,
-                        ),
-                        TextButton(
-                          onPressed: () => answerquestion(
-                              model.quizmodel[n].answer![2].check),
-                          child: Container(
-                            height: 70,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              border: Border.all(
-                                width: 3,
-                                color: AppColor.borderPink,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "${model.quizmodel[n].answer?[2].answer}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.black,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 17,
-                        ),
-                        TextButton(
-                          onPressed: () => answerquestion(
-                              model.quizmodel[n].answer![3].check),
-                          child: Container(
-                            height: 70,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              border: Border.all(
-                                width: 3,
-                                color: AppColor.borderPink,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "${model.quizmodel[n].answer?[3].answer}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.black,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 34,
-                        ),
-                        Container(
-                          height: 60,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: AppColor.customPink,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(35),
-                              topRight: Radius.circular(35),
-                            ),
-                          ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              "Quizzly",
-                              style: TextStyle(
-                                fontFamily: "DMSans",
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: AppColor.white,
+                              "${model.list[n].answer?[0].answer}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: AppColor.black,
+                                fontSize: 17,
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 17),
+                      TextButton(
+                        onPressed: () =>
+                            answerQuestion(model.list[n].answer![1].check),
+                        child: Container(
+                          height: 70,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              width: 3,
+                              color: AppColor.borderPink,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${model.list[n].answer?[1].answer}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: AppColor.black,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 17),
+                      TextButton(
+                        onPressed: () =>
+                            answerQuestion(model.list[n].answer![2].check),
+                        child: Container(
+                          height: 70,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              width: 3,
+                              color: AppColor.borderPink,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${model.list[n].answer?[2].answer}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: AppColor.black,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 17),
+                      TextButton(
+                        onPressed: () =>
+                            answerQuestion(model.list[n].answer![3].check),
+                        child: Container(
+                          height: 70,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              width: 3,
+                              color: AppColor.borderPink,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${model.list[n].answer?[3].answer}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: AppColor.black,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 34),
+                      const BottomCustom(),
+                    ],
                   ),
                 ],
               )
