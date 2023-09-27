@@ -25,12 +25,16 @@ class _HomePageState extends State<HomePage> {
               image: DecorationImage(
                   image: AssetImage(AppIcon.backgroundIc), fit: BoxFit.fill),
               color: AppColor.customPink),
-          child: const Column(
+          child: ListView(
             children: [
-              SizedBox(height: 60),
-              TitleName(),
-              CustomCard(),
-              Levels(),
+              const Column(
+                children: [
+                  SizedBox(height: 60),
+                  TitleName(),
+                  CustomCard(),
+                  Levels(),
+                ],
+              ),
             ],
           ),
         ),
