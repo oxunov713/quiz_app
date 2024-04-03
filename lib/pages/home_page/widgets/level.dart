@@ -4,15 +4,15 @@ import '../../../styles/app_color.dart';
 import '../../questions/questions.dart';
 
 class Level extends StatelessWidget {
-  const Level({super.key, required this.text});
+  Level({super.key, required this.function, required this.text});
 
   final String? text;
+  final Function() function;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Questions())),
+      onPressed:  function,
       child: Container(
         height: 70,
         width: 300,

@@ -1,11 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz_app/provider/providerlevel.dart';
 
 import '../../data/quiz_data.dart';
 import '../../models/quiz_data_model.dart';
 import '../../styles/app_color.dart';
-import '../result/result.dart';
+import '../../styles/app_icon.dart';
+import '../home_page/home_page.dart';
+import '../result/widgets/custom_appbar.dart';
+
 import 'widgets/bottom.dart';
 
 class Questions extends StatefulWidget {
@@ -16,26 +21,24 @@ class Questions extends StatefulWidget {
 }
 
 class _QuestionsState extends State<Questions> {
-  int n = 0;
-  int score = 0;
+  late ProviderLevel providerLevelR;
+  late ProviderLevel providerLevelW;
 
-  QModel model = QModel.fromJson(jsonDecode(jsonData));
-
-  void answerQuestion(bool check) {
-    setState(() {
-      n++;
-      if (check) score++;
-    });
+  @override
+  void didChangeDependencies() {
+    providerLevelR = context.read<ProviderLevel>();
+    providerLevelW = context.watch<ProviderLevel>();
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: n < 10
+        body: providerLevelW.n < 10
             ? ListView(
-              children: [
-                Column(
+                children: [
+                  Column(
                     children: [
                       Stack(
                         children: [
@@ -52,7 +55,10 @@ class _QuestionsState extends State<Questions> {
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: IconButton(
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () {
+                                  providerLevelR.clear();
+                                  Navigator.pop(context);
+                                },
                                 icon: const Icon(
                                   Icons.arrow_back_outlined,
                                   color: AppColor.white,
@@ -81,10 +87,10 @@ class _QuestionsState extends State<Questions> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 50, bottom: 20),
+                                  padding: const EdgeInsets.only(
+                                      top: 50, bottom: 20),
                                   child: Text(
-                                    "Questions ${n + 1}/10",
+                                    "Questions ${providerLevelW.n + 1}/10",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15,
@@ -96,7 +102,7 @@ class _QuestionsState extends State<Questions> {
                                   padding:
                                       const EdgeInsets.only(left: 5, bottom: 3),
                                   child: Text(
-                                    "${model.list[n].questions}",
+                                    "${providerLevelW.currentLevel[providerLevelW.n].questions}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18,
@@ -145,8 +151,12 @@ class _QuestionsState extends State<Questions> {
                         children: [
                           const SizedBox(height: 17),
                           TextButton(
-                            onPressed: () =>
-                                answerQuestion(model.list[n].answer![0].check),
+                            onPressed: () {
+                              providerLevelR.answerQuestion(providerLevelW
+                                  .currentLevel[providerLevelW.n]
+                                  .answer![0]
+                                  .check);
+                            },
                             child: Container(
                               height: 70,
                               width: 300,
@@ -161,7 +171,7 @@ class _QuestionsState extends State<Questions> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "${model.list[n].answer?[0].answer}",
+                                  "${providerLevelW.currentLevel[providerLevelW.n].answer?[0].answer}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColor.black,
@@ -173,8 +183,12 @@ class _QuestionsState extends State<Questions> {
                           ),
                           const SizedBox(height: 17),
                           TextButton(
-                            onPressed: () =>
-                                answerQuestion(model.list[n].answer![1].check),
+                            onPressed: () {
+                              providerLevelR.answerQuestion(providerLevelW
+                                  .currentLevel[providerLevelW.n]
+                                  .answer![1]
+                                  .check);
+                            },
                             child: Container(
                               height: 70,
                               width: 300,
@@ -189,7 +203,7 @@ class _QuestionsState extends State<Questions> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "${model.list[n].answer?[1].answer}",
+                                  "${providerLevelW.currentLevel[providerLevelW.n].answer?[1].answer}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColor.black,
@@ -201,8 +215,12 @@ class _QuestionsState extends State<Questions> {
                           ),
                           const SizedBox(height: 17),
                           TextButton(
-                            onPressed: () =>
-                                answerQuestion(model.list[n].answer![2].check),
+                            onPressed: () {
+                              providerLevelR.answerQuestion(providerLevelW
+                                  .currentLevel[providerLevelW.n]
+                                  .answer![2]
+                                  .check);
+                            },
                             child: Container(
                               height: 70,
                               width: 300,
@@ -217,7 +235,7 @@ class _QuestionsState extends State<Questions> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "${model.list[n].answer?[2].answer}",
+                                  "${providerLevelW.currentLevel[providerLevelW.n].answer?[2].answer}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColor.black,
@@ -229,8 +247,9 @@ class _QuestionsState extends State<Questions> {
                           ),
                           const SizedBox(height: 17),
                           TextButton(
-                            onPressed: () =>
-                                answerQuestion(model.list[n].answer![3].check),
+                            onPressed: () => providerLevelR.answerQuestion(
+                                providerLevelW.currentLevel[providerLevelW.n]
+                                    .answer![3].check),
                             child: Container(
                               height: 70,
                               width: 300,
@@ -245,7 +264,7 @@ class _QuestionsState extends State<Questions> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "${model.list[n].answer?[3].answer}",
+                                  "${providerLevelW.currentLevel[providerLevelW.n].answer?[3].answer}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColor.black,
@@ -261,9 +280,189 @@ class _QuestionsState extends State<Questions> {
                       ),
                     ],
                   ),
-              ],
-            )
-            : Result(n: score),
+                ],
+              )
+            : (providerLevelW.score == 10)
+                ? Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(AppIcon.congratulate)),
+                    ),
+                    child: ListView(
+                      children: [
+                        Column(
+                          children: [
+                            CustomAppbar(n: providerLevelW.score),
+                            const SizedBox(height: 50),
+                            TextButton(
+                              onPressed: () {
+                                providerLevelR.clear();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Questions(),
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                height: 70,
+                                width: 300,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    border: Border.all(
+                                      width: 3,
+                                      color: AppColor.borderPink,
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Play again",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColor.black,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                providerLevelR.clear();
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                height: 70,
+                                width: 300,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    border: Border.all(
+                                      width: 3,
+                                      color: AppColor.borderPink,
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Home",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColor.black,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 70),
+                            const BottomCustom(),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView(
+                    children: [
+                      Column(
+                        children: [
+                          CustomAppbar(n: providerLevelW.score),
+                          const SizedBox(height: 50),
+                          TextButton(
+                            onPressed: () {
+                              providerLevelR.clear();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Questions(),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: 70,
+                              width: 300,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  border: Border.all(
+                                    width: 3,
+                                    color: AppColor.borderPink,
+                                  ),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Play again",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColor.black,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              providerLevelR.clear();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: 70,
+                              width: 300,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  border: Border.all(
+                                    width: 3,
+                                    color: AppColor.borderPink,
+                                  ),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Home",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColor.black,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 70),
+                          const BottomCustom(),
+                        ],
+                      ),
+                    ],
+                  ),
       ),
     );
   }

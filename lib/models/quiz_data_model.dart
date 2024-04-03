@@ -58,12 +58,26 @@ class AnswerModel {
 }
 
 class QModel {
-  List<QuizModel> list;
+  List<QuizModel> elementary;
+  List<QuizModel> pre_intermediate;
+  List<QuizModel> intermediate;
 
-  QModel({required this.list});
+  QModel({
+    required this.elementary,
+    required this.pre_intermediate,
+    required this.intermediate,
+  });
 
   factory QModel.fromJson(Map<String, Object?> json) => QModel(
-        list: (json["list"] as List?)
+        elementary: (json["elementary"] as List)
+                ?.map((e) => QuizModel.fromJson(e))
+                .toList() ??
+            [],
+        pre_intermediate: (json["pre-intermediate"] as List)
+                ?.map((e) => QuizModel.fromJson(e))
+                .toList() ??
+            [],
+        intermediate: (json["intermediate"] as List)
                 ?.map((e) => QuizModel.fromJson(e))
                 .toList() ??
             [],

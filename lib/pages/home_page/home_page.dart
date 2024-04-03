@@ -27,12 +27,12 @@ class _HomePageState extends State<HomePage> {
               color: AppColor.customPink),
           child: ListView(
             children: [
-              const Column(
+              Column(
                 children: [
-                  SizedBox(height: 60),
-                  TitleName(),
-                  CustomCard(),
-                  Levels(),
+                   SizedBox(height: 60),
+                   TitleName(),
+                   CustomCard(),
+                   Levels(),
                 ],
               ),
             ],
